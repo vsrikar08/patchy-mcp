@@ -4,12 +4,12 @@ A small, standalone MCP add-on for discovering published Patchy Cloud patches. I
 
 ## Install and connect
 
-Download the versioned `patchy-mcp-0.2.0.tgz` release and its SHA-256 file, then give
+Download the versioned `patchy-mcp-0.2.1.tgz` release and its SHA-256 file, then give
 [SETUP.md](SETUP.md) to your agent. It installs the prebuilt executable, reuses
 Patchy's existing machine login, and registers it with Codex CLI:
 
 ```sh
-npm install --global --ignore-scripts https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.0/patchy-mcp-0.2.0.tgz
+npm install --global --ignore-scripts https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
 patchy-mcp --version
 patchy-mcp doctor
 # If needed: patchy-mcp login --json; relay URL/code and complete returned next.
@@ -18,20 +18,20 @@ patchy-mcp setup codex
 
 Restart Codex or start a new session. No token is placed in its config and no
 absolute executable path is required. Only the person confirms their device login
-in the browser. The existing Patchy CLI must be on PATH and support its version 1
-`auth token --json` local-program interface; MCP never reads its private state files.
+in the browser. The public Patchy CLI must be on PATH. Doctor uses `patchy whoami --json`;
+patch discovery uses the existing `patchy list --json` interfaces. These commands
+own credential selection and authentication, so setup works with the published
+CLI without a new credential exporter or a Cloud deployment.
 
-The tarball includes built JavaScript and runtime dependencies; it can be installed
-without building source. Prebuilt downloads are distributed through this project’s
-GitHub releases. The CLI must support credential interface version 1; the current
-public 0.14.0 CLI does not yet include it. Cloud’s additional Page/query routes
-also require their accompanying release; installation verification uses the
-already-published `list_patches` API.
+The prebuilt tarball and agent instructions are published at
+https://github.com/vsrikar08/patchy-mcp/releases/tag/v0.2.1.
+Additional Page/query operations still require the prototype's corresponding
+Cloud API and credential interface; onboarding verifies the existing discovery
+operation `list_patches`.
 
 `PATCHY_API_URL` defaults to `https://cloud.patchyhq.com`. For a custom instance,
 use `--api-url` on doctor, login and setup. Advanced direct launches still accept
-`PATCHY_API_TOKEN` as an explicit override. Otherwise every tool call privately
-asks the CLI for its current credential, then calls Cloud with a bearer header.
+`PATCHY_API_TOKEN` as an explicit override. Otherwise discovery asks the public CLI to make each Cloud request with its current saved login.
 A 401 gives “sign in again” steps; completing login repairs the running connection.
 
 `patchy-mcp remove codex` disconnects MCP. `patchy-mcp logout` is shared machine
