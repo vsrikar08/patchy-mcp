@@ -4,12 +4,12 @@ A small, standalone MCP add-on for discovering published Patchy Cloud patches. I
 
 ## Install and connect
 
-Download the versioned `patchy-mcp-0.2.1.tgz` release and its SHA-256 file, then give
+Download the versioned `patchy-mcp-0.2.2.tgz` release and its SHA-256 file, then give
 [SETUP.md](SETUP.md) to your agent. It installs the prebuilt executable, reuses
 Patchy's existing machine login, and registers it with Codex CLI:
 
 ```sh
-npm install --global --ignore-scripts https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
+npm install --global --ignore-scripts https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.2/patchy-mcp-0.2.2.tgz
 patchy-mcp --version
 patchy-mcp doctor
 # If needed: patchy-mcp login --json; relay URL/code and complete returned next.
@@ -24,7 +24,7 @@ own credential selection and authentication, so setup works with the published
 CLI without a new credential exporter or a Cloud deployment.
 
 The prebuilt tarball and agent instructions are published at
-https://github.com/vsrikar08/patchy-mcp/releases/tag/v0.2.1.
+https://github.com/vsrikar08/patchy-mcp/releases/tag/v0.2.2.
 Additional Page/query operations still require the prototype's corresponding
 Cloud API and credential interface; onboarding verifies the existing discovery
 operation `list_patches`.
