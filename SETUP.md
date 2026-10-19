@@ -12,7 +12,7 @@ Do not clone source, compile it, copy credentials, or manually edit Codex config
 - Check `codex --version`. If missing, use the existing npm installer:
   `npm install --global @openai/codex@0.160.1`. If Codex needs its own login, follow
   its existing login instructions. Never replace someone else's Codex login.
-- If `patchy` is missing or doctor below reports an old CLI, use Patchy's existing
+- If `patchy` is missing, use Patchy's existing
   installer. Download https://cloud.patchyhq.com/install.mjs to a temporary file
   and run it with Node. It verifies and installs the public Patchy release.
   Keep the installed executables on PATH. Use a user-owned npm prefix if needed.
@@ -22,18 +22,18 @@ Do not clone source, compile it, copy credentials, or manually edit Codex config
 
 Download both files, without GitHub login:
 
-- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.0/patchy-mcp-0.2.0.tgz
-- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.0/patchy-mcp-0.2.0.tgz.sha256
+- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
+- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz.sha256
 
 Verify the archive with the downloaded SHA-256 file. Then install:
 
 ```sh
-npm install --global --ignore-scripts --no-audit --no-fund https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.0/patchy-mcp-0.2.0.tgz
+npm install --global --ignore-scripts --no-audit --no-fund https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
 patchy-mcp --version
 patchy-mcp doctor
 ```
 
-Expected MCP version: `0.2.0`. The tarball includes built JavaScript and all runtime
+Expected MCP version: `0.2.1`. The tarball includes built JavaScript and all runtime
 dependencies. No development tools or build scripts are needed.
 
 Clear an old `PATCHY_API_TOKEN` override before setup. The add-on uses Patchy's
@@ -56,7 +56,7 @@ Run the returned `next` command with `--json` added. If it reports `pending`, re
 the same command after confirmation; proceed only when status is `logged_in`.
 The existing CLI saves the credential privately. Run `patchy-mcp doctor` again and
 check that it shows the intended account/company. Never display the secret-bearing
-`patchy auth token` response or read the private credentials file.
+credential output or read the private credentials file.
 
 ## 4. Connect and verify
 
