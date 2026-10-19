@@ -22,18 +22,18 @@ Do not clone source, compile it, copy credentials, or manually edit Codex config
 
 Download both files, without GitHub login:
 
-- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
-- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz.sha256
+- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.2/patchy-mcp-0.2.2.tgz
+- https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.2/patchy-mcp-0.2.2.tgz.sha256
 
 Verify the archive with the downloaded SHA-256 file. Then install:
 
 ```sh
-npm install --global --ignore-scripts --no-audit --no-fund https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.1/patchy-mcp-0.2.1.tgz
+npm install --global --ignore-scripts --no-audit --no-fund https://github.com/vsrikar08/patchy-mcp/releases/download/v0.2.2/patchy-mcp-0.2.2.tgz
 patchy-mcp --version
 patchy-mcp doctor
 ```
 
-Expected MCP version: `0.2.1`. The tarball includes built JavaScript and all runtime
+Expected MCP version: `0.2.2`. The tarball includes built JavaScript and all runtime
 dependencies. No development tools or build scripts are needed.
 
 Clear an old `PATCHY_API_TOKEN` override before setup. The add-on uses Patchy's
@@ -69,14 +69,22 @@ Setup verifies the saved login and uses Codex's own registration command. It sto
 `patchy-mcp` as the executable name and the Patchy URL; it stores no token or source
 checkout path. It replaces only an existing `patchy` MCP registration.
 
-Start a fresh Codex session so it loads the new server. Ask it:
+The setup agent should launch a fresh Codex process itself so it loads the saved
+registration. No manual restart is needed for verification:
 
-> Use Patchy's list_patches tool to list the patches I can access.
+```sh
+codex exec --json --skip-git-repo-check --sandbox read-only \
+  -c 'mcp_servers.patchy.tools.list_patches.approval_mode="approve"' \
+  "Use Patchy's list_patches MCP tool to list the patches I can access. Do not substitute a shell command."
+```
 
 Success means the actual `list_patches` MCP call returns Cloud's patch inventory
 without a tool error. An empty inventory is valid. Do not substitute a shell/CLI
-listing for this final verification. If the host requires tool approval, let the
-person approve the read. Report the account/company and the tool result.
+listing for this final verification. Check the JSON events for a completed
+`mcp_tool_call` for `patchy` / `list_patches` with no tool error. The command
+authorizes this one read for verification; it does not edit saved configuration.
+Report the account/company and the tool result. Future interactive Codex sessions
+load the same saved registration.
 
 ## Sign in again or disconnect
 
